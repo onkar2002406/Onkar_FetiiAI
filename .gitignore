@@ -1,0 +1,41 @@
+# ---------------------------
+# Python
+# ---------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual environment
+.venv/
+env/
+venv/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+
+# Cache / build artifacts
+cache/
+*.egg-info/
+*.egg
+*.manifest
+*.spec
+
+# Data / outputs (if these are generated or large)
+data/
+exports/
+
+# IDE / Editor
+.vscode/
+.idea/
+
+# Jupyter / notebook checkpoints (if used)
+.ipynb_checkpoints/

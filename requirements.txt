@@ -1,0 +1,14 @@
+streamlit
+pandas
+numpy
+openai
+python-dotenv
+chromadb
+langchain_community
+langchain-google-genai
+langchain_openai
+faiss-cpu
+sentence-transformers
+pandasai
+fastapi
+uvicorn
