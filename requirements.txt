@@ -156,8 +156,6 @@ python-dateutil==2.9.0.post0
 python-dotenv==1.1.1
 python-json-logger==3.3.0
 pytz==2025.2
-pywin32==311
-pywinpty==3.0.0
 PyYAML==6.0.2
 pyzmq==27.1.0
 referencing==0.36.2
@@ -213,3 +211,4 @@ wheel==0.45.1
 widgetsnbextension==4.0.14
 wrapt==1.17.3
 yarl==1.20.1
+
