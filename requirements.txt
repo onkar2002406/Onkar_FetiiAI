@@ -87,7 +87,6 @@ langsmith==0.4.27
 llama-cloud==0.1.35
 llama-cloud-services==0.6.54
 llama-index==0.14.0
-llama-index-agent-openai<=0.4.12
 llama-index-cli==0.5.1
 llama-index-core==0.14.1
 llama-index-embeddings-adapter==0.4.1
@@ -99,7 +98,6 @@ llama-index-instrumentation==0.4.0
 llama-index-legacy==0.9.48.post4
 llama-index-llms-azure-openai==0.4.1
 llama-index-llms-mistralai==0.7.1
-llama-index-llms-openai==0.5.6
 llama-index-multi-modal-llms-openai==0.2.3
 llama-index-postprocessor-cohere-rerank==0.5.1
 llama-index-program-openai==0.2.0
@@ -217,6 +215,7 @@ wrapt==1.17.3
 yarl==1.20.1
 zipp==3.23.0
 zstandard==0.24.0
+
 
 
 
