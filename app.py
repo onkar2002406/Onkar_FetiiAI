@@ -81,6 +81,3 @@ else:
                 placeholder.markdown(f"Unrecognized result type: `{type(ans)}`\n\n{ans}")
                 
             st.session_state.messages.append({"role": "assistant", "content": ans})
-
-
-    st.sidebar.markdown(f"⚠️ Error Counter: **{engine.error_counter}**")
