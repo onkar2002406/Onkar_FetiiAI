@@ -1,78 +1,3 @@
-# import types
-# import matplotlib.figure
-# import matplotlib
-# import matplotlib.pyplot as plt
-# import pandas as pd
-# import streamlit as st
-# from data_handler import load_data
-# from query_engine import QueryEngine
-# from vector_store import VectorDB
-
-
-# st.title("Fetii Data Chatbot 🚖")
-# st.write("Upload a CSV file and ask questions about the data!")
-
-# uploaded_file = st.file_uploader("Upload CSV", type=["csv"])
-
-# if uploaded_file:
-#     df = load_data(uploaded_file)
-#     st.success("✅ Data loaded successfully!")
-
-#     engine = QueryEngine(df)
-#     vectordb = VectorDB()
-
-#     if "messages" not in st.session_state:
-#         st.session_state.messages = []
-#     if "cache" not in st.session_state:
-#         st.session_state.cache = {}
-
-#     for m in st.session_state.messages:
-#         with st.chat_message(m["role"]):
-#             st.markdown(m["content"])
-
-#     if prompt := st.chat_input("Ask a question"):
-#         st.session_state.messages.append({"role": "user", "content": prompt})
-#         with st.chat_message("user"):
-#             st.markdown(prompt)
-
-#         with st.chat_message("assistant"):
-#             placeholder = st.empty()
-
-#             # 🔁 Cache lookup
-#             if prompt in st.session_state.cache:
-#                 ans = st.session_state.cache[prompt]
-#             else:
-#                 # 🔎 Vector DB semantic match
-#                 ans = vectordb.search(prompt)
-#                 if ans is None:
-#                     ans = engine.answer(prompt)
-#                     vectordb.add(prompt, ans)
-#                 st.session_state.cache[prompt] = ans
-
-#             # 🖼️ Display answer
-#             if isinstance(ans, pd.DataFrame):
-#                 placeholder.dataframe(ans)
-
-#             elif isinstance(ans, matplotlib.figure.Figure):
-#                 # a real Matplotlib figure
-#                 placeholder.pyplot(ans)
-
-#             elif isinstance(ans, types.ModuleType) and ans.__name__ == "matplotlib.pyplot":
-#                 # sometimes PandasAI returns the pyplot module itself
-#                 placeholder.pyplot(plt.gcf())
-
-#             elif isinstance(ans, str):
-#                 # ✅ plain text explanation or error string
-#                 placeholder.markdown(ans)
-
-#             else:
-#                 # catch anything unexpected
-#                 placeholder.markdown(f"Unrecognized result type: {type(ans)}\n\n{ans}")
-                
-#         st.session_state.messages.append({"role": "assistant", "content": str(ans)})
-
-#     st.sidebar.markdown(f"⚠️ Error Counter: **{engine.error_counter}**")
-
 import types
 import matplotlib.figure
 import matplotlib.pyplot as plt
@@ -156,5 +81,6 @@ else:
                 placeholder.markdown(f"Unrecognized result type: `{type(ans)}`\n\n{ans}")
                 
             st.session_state.messages.append({"role": "assistant", "content": ans})
+
 
     st.sidebar.markdown(f"⚠️ Error Counter: **{engine.error_counter}**")
