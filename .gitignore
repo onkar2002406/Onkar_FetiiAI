@@ -30,7 +30,6 @@ cache/
 *.spec
 
 # Data / outputs (if these are generated or large)
-data/
 exports/
 
 # IDE / Editor
@@ -39,3 +38,4 @@ exports/
 
 # Jupyter / notebook checkpoints (if used)
 .ipynb_checkpoints/
+
