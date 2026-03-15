@@ -8,7 +8,7 @@ class QueryEngine:
     def __init__(self, df: pd.DataFrame):
         self.df = df
         self.llm = OpenAI()
-        
+
         # Instantiate Config with only supported parameters
         self.config = Config(
             llm=self.llm,
@@ -18,12 +18,12 @@ class QueryEngine:
         )
 
         # Pass the Config object directly
-        self.sdf = SmartDataframe(df, config=self.config)
+        self.smart_dataframe = SmartDataframe(df, config=self.config)
 
     def answer(self, query: str):
         """Returns the PandasAI response to a query."""
         try:
-            result = self.sdf.chat(query)
+            result = self.smart_dataframe.chat(query)
             # Could be DataFrame, matplotlib Figure, or plain text.
             return result
         except Exception as e:

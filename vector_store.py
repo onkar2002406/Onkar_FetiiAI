@@ -42,8 +42,8 @@ class VectorDB:
     def add(self, query, response):
         """Adds a query and its response to the vector store."""
         # Encode the query and convert to float32 for FAISS
-        emb = self.model.encode([query]).astype("float32")
-        self.index.add(emb)
+        embedding = self.model.encode([query]).astype("float32")
+        self.index.add(embedding)
         self.queries.append(query)
         self.responses.append(response)
 
@@ -51,14 +51,14 @@ class VectorDB:
         """Searches for a semantically similar query in the store."""
         if len(self.queries) == 0:
             return None
-        
-        emb = self.model.encode([query]).astype("float32")
-        D, I = self.index.search(emb, 1) # Search for the top 1 most similar item
-        
-        # Check if the distance (D) is below the threshold.
+
+        query_embedding = self.model.encode([query]).astype("float32")
+        distances, indices = self.index.search(query_embedding, 1) # Search for the top 1 most similar item
+
+        # Check if the distance (distances) is below the threshold.
         # This approximates cosine similarity, where a smaller L2 distance means higher similarity for normalized vectors.
         # The threshold of 0.85 is a heuristic and can be tuned.
-        if D[0][0] < (1 - threshold): 
-            return self.responses[I[0][0]]
-        
+        if distances[0][0] < (1 - threshold):
+            return self.responses[indices[0][0]]
+
         return None

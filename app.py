@@ -34,18 +34,18 @@ else:
         st.session_state.cache = {}
 
     # Display chat messages from history
-    for m in st.session_state.messages:
-        with st.chat_message(m["role"]):
+    for message in st.session_state.messages:
+        with st.chat_message(message["role"]):
             # Use the helper function for display
-            if isinstance(m["content"], (pd.DataFrame, matplotlib.figure.Figure, types.ModuleType, str, int, float, np.floating, np.integer)):
-                if isinstance(m["content"], types.ModuleType):
-                    st.pyplot(m["content"])
-                elif isinstance(m["content"], (pd.DataFrame, str, int, float, np.floating, np.integer)):
-                    st.markdown(m["content"])
+            if isinstance(message["content"], (pd.DataFrame, matplotlib.figure.Figure, types.ModuleType, str, int, float, np.floating, np.integer)):
+                if isinstance(message["content"], types.ModuleType):
+                    st.pyplot(message["content"])
+                elif isinstance(message["content"], (pd.DataFrame, str, int, float, np.floating, np.integer)):
+                    st.markdown(message["content"])
                 else:
-                    st.pyplot(m["content"])
+                    st.pyplot(message["content"])
             else:
-                st.markdown(f"Unrecognized content type: `{type(m['content'])}`\n\n{m['content']}")
+                st.markdown(f"Unrecognized content type: `{type(message['content'])}`\n\n{message['content']}")
 
 
     if prompt := st.chat_input("Ask a question"):
@@ -55,29 +55,29 @@ else:
             st.markdown(prompt)
 
         with st.chat_message("assistant"):
-            placeholder = st.empty()
+            response_placeholder = st.empty()
 
             # 🔁 Cache lookup
             if prompt in st.session_state.cache:
-                ans = st.session_state.cache[prompt]
+                answer = st.session_state.cache[prompt]
             else:
                 # 🔎 Vector DB semantic match
-                ans = vectordb.search(prompt)
-                if ans is None:
-                    ans = engine.answer(prompt)
-                    vectordb.add(prompt, ans)
-                st.session_state.cache[prompt] = ans
+                answer = vectordb.search(prompt)
+                if answer is None:
+                    answer = engine.answer(prompt)
+                    vectordb.add(prompt, answer)
+                st.session_state.cache[prompt] = answer
 
             # 🖼️ Display the new answer and save it to history
-            if isinstance(ans, pd.DataFrame):
-                placeholder.dataframe(ans, use_container_width=True)
-            elif isinstance(ans, matplotlib.figure.Figure):
-                placeholder.pyplot(ans)
-            elif isinstance(ans, types.ModuleType) and ans.__name__ == "matplotlib.pyplot":
-                placeholder.pyplot(plt.gcf())
-            elif isinstance(ans, (str, int, float, np.floating, np.integer)):
-                placeholder.markdown(f"**Answer:** {ans}")
+            if isinstance(answer, pd.DataFrame):
+                response_placeholder.dataframe(answer, use_container_width=True)
+            elif isinstance(answer, matplotlib.figure.Figure):
+                response_placeholder.pyplot(answer)
+            elif isinstance(answer, types.ModuleType) and answer.__name__ == "matplotlib.pyplot":
+                response_placeholder.pyplot(plt.gcf())
+            elif isinstance(answer, (str, int, float, np.floating, np.integer)):
+                response_placeholder.markdown(f"**Answer:** {answer}")
             else:
-                placeholder.markdown(f"Unrecognized result type: `{type(ans)}`\n\n{ans}")
-                
-            st.session_state.messages.append({"role": "assistant", "content": ans})
+                response_placeholder.markdown(f"Unrecognized result type: `{type(answer)}`\n\n{answer}")
+
+            st.session_state.messages.append({"role": "assistant", "content": answer})
